@@ -1,0 +1,63 @@
+# -*- coding: cp1252 -*-
+from selenium import webdriver
+import os
+import time
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+ 
+#self.driver = webdriver.Firefox()
+#self.driver.implicitly_wait(0)
+#self.base_url = "https://www.google.com.mx"
+ 
+ 
+for x in range(0,20000):
+ 
+    binary = FirefoxBinary('C:\Users\erik_\Downloads\firefox-47.0.2.win64.sdk\firefox-sdk\bin\firefox.exe')
+    profile = webdriver.FirefoxProfile()
+    profile.set_preference("geo.prompt.testing", True)
+    profile.set_preference("geo.prompt.testing.allow", True)
+    profile.set_preference('browser.download.folderList', 2)
+    profile.set_preference('browser.download.manager.showWhenStarting', False)
+    profile.set_preference('browser.download.dir', os.getcwd())
+    profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/csv/xls')
+    string = 'gastroenterologo'
+    string2=string.decode('latin-1')
+    driver = webdriver.Firefox(profile)
+    #driver = webdriver.Chrome(executable_path=r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe")
+    driver.implicitly_wait(3)
+    driver.get("https://www.google.com.mx")
+    #driver.find_element_by_id("lst-ib").clear()
+    #driver.find_element_by_id("lst-ib").send_keys(string2)
+    #driver.find_element_by_id("lst-ib").send_keys(Keys.TAB)
+
+    
+    
+    driver.find_element_by_name("q").clear()
+    driver.find_element_by_name("q").send_keys(string2)
+    
+    driver.find_element_by_name("btnK").click()
+    #driver.find_element_by_link("Usar ubicación precisa").click()
+ 
+    try:
+        #.find_element(partial_link_text, 'unidaddegastroenterologia').click()
+        driver.find_element_by_id("vn1s0p1c0").click()
+        #driver.find_element_by_id("vads-0-0-1-1-0").click() 
+
+        time.sleep(5)
+        driver.quit()
+ 
+    except NoSuchElementException:
+        driver.find_element_by_id("vs3p1c0").click()
+        time.sleep(15)
+        driver.quit()
+
+
+    except NoSuchElementException:
+
+        driver.quit()
+    
+   
+    #driver.find_element_by_id("vs0p1c0").click()
+   
+    #driver.quit()
